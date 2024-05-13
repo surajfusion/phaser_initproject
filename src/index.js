@@ -38,8 +38,9 @@ function create () {
   this.add.image(0, 0, 'sky').setOrigin(0);
 
   for(let i = 0; i < 5; i++){
-    startsGroup = this.physics.add.image(getRandomInt(750), getRandomInt(300), `star_${i}`)
-      .setOrigin(0).setVelocityX(-30);
+    this.physics.add.image(getRandomInt(1500), getRandomInt(300), `star_${i}`)
+      .setOrigin(0)
+      .setVelocityX(-60);
   }
   
   
@@ -56,6 +57,7 @@ function create () {
   spaceBar.on('down', () =>{
     console.log('SPACE DOWN');
     birdImage.setVelocityY(-200);
+    birdImage.setGravityY(200);
   });
 
   spaceBar.on('up', () =>{
@@ -74,10 +76,6 @@ function update() {
     //birdImage.body.position.y = 300;
     birdImage.setVelocityY(-100)
   }
-
-  console.log(startsGroup.body.position.x);
-  console.log(startsGroup.body.position.x);
-  //debugger;
   
   
 }
