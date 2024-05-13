@@ -7,6 +7,7 @@ const gameSpeedofY = 300;
 //game variable;
 let birdImage;
 let startsGroup;
+let startsGroup2;
 
 const config = {
   type: Phaser.AUTO,
@@ -36,28 +37,41 @@ function preload () {
 
 function create () {
   this.add.image(0, 0, 'sky').setOrigin(0);
+  startsGroup = this.physics.add.group();
+  startsGroup2 = this.physics.add.group();
 
   for(let i = 0; i < 5; i++){
-    this.physics.add.image(getRandomInt(1500), getRandomInt(300), `star_${i}`)
-      .setOrigin(0)
-      .setVelocityX(-60);
+    startsGroup.create(getRandomInt(700), getRandomInt(300), `star_${i}`);
   }
-  
-  
-  //this.add.image(60, 300, 'bird');
-  //const logo = this.physics.add.image(400, 100, 'bomb');
 
-  //birdImage = this.physics.add.image(60, 300, 'bird').setOrigin(1);
+  for(let i = 0; i < 5; i++){
+    startsGroup2.create(getRandomInt(700), getRandomInt(300), `star_${i}`);
+  }
+
+  startsGroup2.scaleXY(0.5,0.5);
+
+  startsGroup.setVelocityX(-60);
+
+  startsGroup.getChildren().forEach((star)=>{
+    console.log(star.x);
+
+  });
+
+  console.log(startsGroup);
+  
+  
   birdImage = this.physics.add.sprite(60, 300, 'bird')
                 .setOrigin(1)
                 .setInteractive();
-  //birdImage.setVelocityY(100).setVelocityX(100);
 
   var spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   spaceBar.on('down', () =>{
     console.log('SPACE DOWN');
     birdImage.setVelocityY(-200);
     birdImage.setGravityY(200);
+
+    startsGroup.scaleXY(0.3,0.3);
+    startsGroup2.setVelocityY(150);
   });
 
   spaceBar.on('up', () =>{
