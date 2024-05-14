@@ -5,9 +5,9 @@ const gameSpeedofX = 300;
 const gameSpeedofY = 300;
 const MAX_STAR_POS = 1500;
 const MAX_START_HEIGHT = 300;
-const FIXED_GAP = 200;
+let FIXED_GAP = 40;
 let LAST_POS = 0;
-let NUMBER_OF_STAR = 20;
+let NUMBER_OF_STAR = 15;
 
 //game variable;
 let birdImage;
@@ -46,8 +46,8 @@ function create () {
   createStars(this);
   console.log(startsGroup);
   
-  birdImage = this.physics.add.sprite(60, 300, 'bird')
-                .setOrigin(1)
+  birdImage = this.physics.add.sprite(90, 300, 'bird')
+                .setOrigin(0)
                 .setInteractive();
 
   handleUserInput(this);
@@ -55,9 +55,15 @@ function create () {
 
 function createStars(context){
   startsGroup = context.physics.add.group();
+  /*
   for(let i = 0; i < NUMBER_OF_STAR; i++){
     startsGroup.create(getRandomInt(MAX_STAR_POS) + LAST_POS + FIXED_GAP, getRandomInt(config.height), `star_${i}`)
     .setVelocityX(-getRandomInt(90));
+  }
+  */
+  for(let i = 0; i < NUMBER_OF_STAR; i++){
+    startsGroup.create(30, i* FIXED_GAP, `star_${i}`).setOrigin(0);
+    
   }
   //startsGroup.setVelocityX(-90);
 }
@@ -104,4 +110,10 @@ function handleUserInput(context){
     birdImage.setVelocityY(200);
     birdImage.setVelocityX(0);
   });
+
+
+  /*
+  Assignments:
+
+  */
 }
