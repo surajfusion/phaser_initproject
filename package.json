@@ -1,12 +1,12 @@
 {
   "name": "phaser-webpack-boilerplate",
   "version": "1.0.0",
-  "description": "",
+  "description": "1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/) (Node.js version >= 14.6.0 required)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.js",
-    "dev":  "webpack serve --config webpack.common.js",
+    "dev": "webpack serve --config webpack.common.js",
     "dev-fb": "webpack serve --config webpack.fb.js"
   },
   "author": "",
