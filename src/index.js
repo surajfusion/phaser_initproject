@@ -20,6 +20,9 @@ const config = {
   height: 600,
   physics: {
     default: 'arcade',
+    arcade: {
+      debug: true
+    }
   },
   scene: {
     preload: preload,
@@ -51,20 +54,23 @@ function create () {
                 .setInteractive();
 
   handleUserInput(this);
+
+  this.physics.add.collider(birdImage, startsGroup, collideCallback);
 }
 
 function createStars(context){
   startsGroup = context.physics.add.group();
-  /*
+  
   for(let i = 0; i < NUMBER_OF_STAR; i++){
     startsGroup.create(getRandomInt(MAX_STAR_POS) + LAST_POS + FIXED_GAP, getRandomInt(config.height), `star_${i}`)
     .setVelocityX(-getRandomInt(90));
   }
-  */
+  /*
   for(let i = 0; i < NUMBER_OF_STAR; i++){
     startsGroup.create(30, i* FIXED_GAP, `star_${i}`).setOrigin(0);
     
   }
+  */
   //startsGroup.setVelocityX(-90);
 }
 
@@ -92,9 +98,23 @@ function update() {
     LAST_POS = getLastStarPosition();
     createStars(this);
   }
+  
   //console.log(getLastStarPosition());
 }
 
+function collideCallback(box, star){
+  console.log('collideCallback', box, star);
+  star.setVelocityX(60);
+  star.setVelocityY(0);
+}
+
+function processCallback(){
+  console.log('processCallback');
+}
+
+function callbackContext(){
+  console.log('callbackContext');
+}
 
 function handleUserInput(context){
   var upArrow = context.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
