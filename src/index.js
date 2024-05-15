@@ -5,9 +5,9 @@ const gameSpeedofX = 300;
 const gameSpeedofY = 300;
 const MAX_STAR_POS = 1500;
 const MAX_START_HEIGHT = 300;
-let FIXED_GAP = 40;
+let FIXED_GAP = 80;
 let LAST_POS = 0;
-let NUMBER_OF_STAR = 15;
+let NUMBER_OF_STAR = 8;
 
 //game variable;
 let birdImage;
@@ -36,6 +36,7 @@ new Phaser.Game(config);
 function preload () {
   this.load.image('sky', 'assets/sky.png');
   this.load.image('bird', 'assets/bird.png');
+  this.load.image('bomb', 'assets/bomb.png');
   for(let i =0; i < NUMBER_OF_STAR; i++){
     this.load.image('star_' + i, 'assets/star.png');
   }
@@ -56,22 +57,28 @@ function create () {
   handleUserInput(this);
 
   this.physics.add.collider(birdImage, startsGroup, collideCallback);
+
+  //4. Add Collider between bomb and Star.
+  //After collision, destroy Star.
 }
 
 function createStars(context){
   startsGroup = context.physics.add.group();
-  
+  /*
   for(let i = 0; i < NUMBER_OF_STAR; i++){
     startsGroup.create(getRandomInt(MAX_STAR_POS) + LAST_POS + FIXED_GAP, getRandomInt(config.height), `star_${i}`)
     .setVelocityX(-getRandomInt(90));
-  }
-  /*
+  }*/
+
   for(let i = 0; i < NUMBER_OF_STAR; i++){
-    startsGroup.create(30, i* FIXED_GAP, `star_${i}`).setOrigin(0);
-    
+    startsGroup.create(750, i* FIXED_GAP, `star_${i}`).setOrigin(0);
   }
-  */
+  
   //startsGroup.setVelocityX(-90);
+}
+
+function fire(){
+
 }
 
 function getLastStarPosition(){
@@ -130,6 +137,16 @@ function handleUserInput(context){
     birdImage.setVelocityY(200);
     birdImage.setVelocityX(0);
   });
+
+
+  var space = context.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+  space.on('down', () => {
+    //1. get Cordinate of Box.
+    //2. Create bomb with same coordinate.
+    //3. Set VelocityX.
+  });
+
+
 
 
   /*
