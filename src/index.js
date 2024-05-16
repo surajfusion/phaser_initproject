@@ -111,6 +111,7 @@ function update() {
 
 function collideCallback(box, star){
   console.log('collideCallback', box, star);
+
   star.setVelocityX(60);
   star.setVelocityY(0);
 }
@@ -136,11 +137,21 @@ function handleUserInput(context){
     console.log('SPACE DOWN');
     birdImage.setVelocityY(200);
     birdImage.setVelocityX(0);
+   // console.log('collideCallback', box.body.position.y);
   });
 
 
   var space = context.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   space.on('down', () => {
+    console.log('collideCallback');
+    console.log('collideCallback', birdImage.body.position.y);
+
+   var bomb =  context.physics.add.sprite(birdImage.body.position.x, birdImage.body.position.y,  'bomb')
+                .setOrigin(0)
+                .setInteractive();
+
+                bomb.setVelocityY(0);
+                bomb.setVelocityX(200);          
     //1. get Cordinate of Box.
     //2. Create bomb with same coordinate.
     //3. Set VelocityX.
