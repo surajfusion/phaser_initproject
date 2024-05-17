@@ -58,6 +58,8 @@ function create () {
 
   this.physics.add.collider(birdImage, startsGroup, collideCallback);
 
+  
+
   //4. Add Collider between bomb and Star.
   //After collision, destroy Star.
 }
@@ -77,9 +79,6 @@ function createStars(context){
   //startsGroup.setVelocityX(-90);
 }
 
-function fire(){
-
-}
 
 function getLastStarPosition(){
   let lastStartPos = 0;
@@ -103,7 +102,7 @@ function update() {
 
   if(getLastStarPosition() < config.width){
     LAST_POS = getLastStarPosition();
-    createStars(this);
+   // createStars(this);
   }
   
   //console.log(getLastStarPosition());
@@ -143,7 +142,7 @@ function handleUserInput(context){
 
   var space = context.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   space.on('down', () => {
-    console.log('collideCallback');
+   
     console.log('collideCallback', birdImage.body.position.y);
 
    var bomb =  context.physics.add.sprite(birdImage.body.position.x, birdImage.body.position.y,  'bomb')
@@ -151,14 +150,21 @@ function handleUserInput(context){
                 .setInteractive();
 
                 bomb.setVelocityY(0);
-                bomb.setVelocityX(200);          
+                bomb.setVelocityX(200);   
+                  
+                
+                context.physics.add.collider(bomb, startsGroup, fire);
     //1. get Cordinate of Box.
     //2. Create bomb with same coordinate.
     //3. Set VelocityX.
   });
 
 
-
+  function fire(bomb, star){
+    console.log('gg' + star);
+    star.destroy();
+   
+  }
 
   /*
   Assignments:
