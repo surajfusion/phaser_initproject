@@ -37,6 +37,11 @@ function preload () {
   this.load.image('sky', 'assets/sky.png');
   this.load.image('bird', 'assets/bird.png');
   this.load.image('bomb', 'assets/bomb.png');
+
+  this.load.spritesheet('flyingbird', 'assets/birdSprite.png',{
+    frameWidth: 16, frameHeight: 16
+  });
+
   for(let i =0; i < NUMBER_OF_STAR; i++){
     this.load.image('star_' + i, 'assets/star.png');
   }
@@ -46,15 +51,29 @@ function preload () {
 
 function create () {
   this.add.image(0, 0, 'sky').setOrigin(0);
-
+  
   createStars(this);
   console.log(startsGroup);
   
-  birdImage = this.physics.add.sprite(90, 300, 'bird')
+  birdImage = this.physics.add.sprite(90, 300, 'flyingbird')
                 .setOrigin(0)
+                .setScale(3)
+                .setFlipX(true)
                 .setInteractive();
-
+  
+                
   handleUserInput(this);
+  this.anims.create({
+    key: 'birdfly',
+    frames: this.anims.generateFrameNumbers('flyingbird', { start: 9, end: 15}),
+    frameRate: 8,
+    // repeat infinitely
+    repeat: -1
+});
+birdImage.play('birdfly');
+
+  this.add.text(10,10,'Score: ', { fontSize: '32px', fill: '#000'});
+  this.add.text(10,45,'Best Score: ', { fontSize: '20px', fill: '#000'});
 
   this.physics.add.collider(birdImage, startsGroup, collideCallback);
 
@@ -77,9 +96,10 @@ function createStars(context){
   //startsGroup.setVelocityX(-90);
 }
 
-function fire(){
-
+function runanimation(context){
+  
 }
+
 
 function getLastStarPosition(){
   let lastStartPos = 0;
@@ -146,11 +166,4 @@ function handleUserInput(context){
     //3. Set VelocityX.
   });
 
-
-
-
-  /*
-  Assignments:
-
-  */
 }
